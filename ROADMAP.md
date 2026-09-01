@@ -10,7 +10,7 @@ Kural: Her kutuyu, o günün işi bitince işaretle (`- [ ]` → `- [x]`). GitHu
 
 ## Faz 0 — Kurulum (Gün 0, bugün)
 
-- [ ] GitHub repo oluştur (`myaibroker`), bu iskeleti push'la
+- [x] GitHub repo oluştur, bu iskeleti push'la — **tamamlandı 2026-09-01** (https://github.com/KKirca/MyBroker)
 - [ ] Telegram bot oluştur (@BotFather) → `TELEGRAM_BOT_TOKEN` al
 - [ ] Alpaca hesabı aç, paper trading API anahtarı al (canlı hesap onayı günler sürebilir — bugün başvur ki Gün 9'da hazır olsun)
 - [ ] İş Yatırım (veya AlgoLab destekleyen başka bir aracı kurum) hesabı için başvuru başlat — KYC süresi riski var, en erken günde başlatılmalı (BIST varsayılan modu zaten `signal_only`, bu yüzden hesap gecikirse proje bloklanmaz)
@@ -71,3 +71,8 @@ Aylık $10-30 bandı: Alpaca ve AlgoLab'ın kendisi ücretsizdir — bütçe kü
 | BIST'e ağırlıklı sermaye = TL/enflasyon riski yoğunlaşması | Nominal kazanç, reel kayıp olabilir | Getiriyi TL + USD bazında raporla, makro bağlamı persona yorumuna dahil et |
 | "ABD'de karakter önemsiz, kâr etsin" disiplinsiz uygulanırsa | Gürültüyü sinyal sanma, aşırı risk | Kural bazlı momentum sistemi + zorunlu stop-loss (risk yöneticisi bunu zorunlu kılıyor) |
 | Kod hatası risk yöneticisini bypass eder | Gerçek sermaye kaybı | Kill-switch varsayılan `true`; canlıya geçiş kod incelemesi + testle şartlı |
+
+## Kurulum Günlüğü (troubleshooting log)
+
+- **2026-09-01 — repo push:** Windows'ta git kurulu değildi, Linux'a (Ubuntu) geçildi. İlk denemede komutlar `&&` ile zincirlenmeden çalıştırılınca `cd myaibroker` sessizce başarısız oldu ve git komutları yanlışlıkla home dizininde başladı — hiçbir şey commit/push edilmeden fark edilip `~/.git` temizlendi, doğru klasörde (`~/myaibroker`) tekrar `git init` yapıldı. **Ders: git komutlarını her zaman `&&` ile zincirleyin, `cd` başarısız olursa zincir dursun.**
+- **2026-09-01 — CI kaldırıldı:** Push sırasında Personal Access Token'da `workflow` scope olmadığı için `.github/workflows/ci.yml` reddedildi. Dosya `git rm --cached` ile commit'ten çıkarılıp push tamamlandı. **Faz 4'te (Gün 13) geri eklenecek** — ya token'a `workflow` izni eklenip dosya tekrar commit'lenerek, ya da GitHub web arayüzünden (Actions sekmesi → "set up a workflow yourself") doğrudan oluşturularak.
